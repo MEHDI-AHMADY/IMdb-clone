@@ -1,6 +1,8 @@
 const API_KEY = process.env.API_KEY;
 import axios from "axios";
 import Results from "@/components/Results/Results";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default async function Home({ searchParams }) {
   const genre = searchParams.genre || "fetchTrending";
@@ -11,15 +13,17 @@ export default async function Home({ searchParams }) {
     }?api_key=${API_KEY}&language=en_US&page=1`
   );
 
-  if(res.statusText !== "OK") {
-    throw new Error("Failed to Fetch Data.")
+  if (res.statusText !== "OK") {
+    throw new Error("Failed to Fetch Data.");
   }
 
   const results = await res.data.results;
-  
+
   return (
-    <div>
-      <Results results={results} />
-    </div>
+    <Suspense fallback={<Loading />}>
+      <div>
+        <Results results={results} />
+      </div>
+    </Suspense>
   );
 }
