@@ -3,7 +3,7 @@ import axios from "axios";
 import Results from "@/components/Results/Results";
 
 export default async function Home({ searchParams }) {
-  const genre = searchParams.genre || "fetchTrending";
+  const genre = searchParams?.genre || "fetchTrending";
 
   const res = await axios.get(
     `https://api.themoviedb.org/3${
