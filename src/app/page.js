@@ -2,8 +2,18 @@ const API_KEY = process.env.API_KEY;
 import axios from "axios";
 import Results from "@/components/Results/Results";
 
-export default async function Home({ searchParams }) {
-  const genre = searchParams.genre || "fetchTrending";
+export default async function Home({ results }) {
+ 
+
+  return (
+      <div>
+        <Results results={results} />
+      </div>
+  );
+}
+
+export async function getServerSideProps ({query}) {
+  const genre = query.genre || "fetchTrending";
 
   const res = await axios.get(
     `https://api.themoviedb.org/3${
@@ -15,11 +25,10 @@ export default async function Home({ searchParams }) {
     throw new Error("Failed to Fetch Data.");
   }
 
-  const results = await res.data.results;
+  return {
+    props : {
+      results : res.data.results
+    }
+  }
 
-  return (
-      <div>
-        <Results results={results} />
-      </div>
-  );
 }
