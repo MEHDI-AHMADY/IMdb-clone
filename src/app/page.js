@@ -11,7 +11,6 @@ export default async function Home({ searchParams }) {
     }?api_key=${API_KEY}&language=en_US&page=7`
   );
 
-
   if (res.statusText !== "OK") {
     throw new Error("Failed to Fetch Data.");
   }
