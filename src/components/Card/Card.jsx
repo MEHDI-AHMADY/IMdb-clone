@@ -33,6 +33,7 @@ export default function Card({ result, index }) {
         {isLoading && (
           <img
             src="/images/loading.png"
+            alt={result.title || result.name}
             style={{
               width: "100%",
               height: "auto",
@@ -52,7 +53,7 @@ export default function Card({ result, index }) {
           className={`sm:rounded-t-lg group-hover:opacity-75 transition-opacity duration-300 ${
             isLoading ? "hidden" : "block"
           }`}
-          onLoadingComplete={() => setIsLoading(false)}
+          onLoad={() => setIsLoading(false)}
         />
 
         <div className="p-2">
